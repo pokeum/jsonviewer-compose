@@ -1,0 +1,81 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+def majorNumber = 0
+def minorNumber = 0
+def patchNumber = 0
+
+def versionNameApp = "$majorNumber.$minorNumber.$patchNumber"
+def versionCodeBase = majorNumber * 100000 + minorNumber * 1000 + patchNumber * 10
+def versionCodeApp = versionCodeBase + 1
+
+android {
+    compileSdkVersion defaultCompileSdkVersion
+    buildToolsVersion defaultBuildToolsVersion
+
+    defaultConfig {
+        applicationId "kr.pokeum.compose_app"
+        minSdkVersion composeMinSdkVersion
+        targetSdkVersion defaultTargetSdkVersion
+        versionCode versionCodeApp
+        versionName versionNameApp
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility javaCompileVersion
+        targetCompatibility javaCompileVersion
+    }
+    kotlinOptions {
+        jvmTarget = jvmTarget
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion versions.compose
+        kotlinCompilerVersion versions.kotlin
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+
+    implementation project(':jsonviewer')
+
+    implementation androidx.core
+    implementation androidx.appcompat
+    implementation androidx.constraintLayoutCompose
+    implementation androidx.composeUi
+    implementation androidx.composeMaterial
+    implementation androidx.composeUiToolingPreview
+    implementation androidx.lifecycleRuntimeKtx
+    implementation androidx.activityCompose
+    implementation androidx.navigationCompose
+
+    testImplementation test.junit
+
+    androidTestImplementation androidTest.junit
+    androidTestImplementation androidTest.espressoCore
+    androidTestImplementation androidTest.composeUiTestJunit
+
+    debugImplementation debug.composeUiTooling
+    debugImplementation debug.composeUiToolingPreview
+    debugImplementation debug.composeUiTestManifest
+}
