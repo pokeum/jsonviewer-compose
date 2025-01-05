@@ -7,6 +7,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,7 +21,9 @@ fun HeaderTitle(
     modifier: Modifier = Modifier
 ) {
     Surface(modifier = modifier.fillMaxWidth()) {
-        Column {
+        Column(
+            Modifier.background(DarkThemeAdaptableColor(Color.White))
+        ) {
             Spacer(modifier = Modifier.height(24.dp))
             Text(
                 text = name,
@@ -46,7 +49,9 @@ fun SubHeaderTitle(
     modifier: Modifier = Modifier
 ) {
     Surface(modifier = modifier.fillMaxWidth()) {
-        Column {
+        Column(
+            Modifier.background(DarkThemeAdaptableColor(Color.White))
+        ) {
             Spacer(modifier = Modifier.height(12.dp))
             Text(
                 text = name,
@@ -66,12 +71,13 @@ fun SubHeaderTitle(
     }
 }
 
+//@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Preview
 @Composable
 fun PreviewHeader() {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colors.background
+        color = DarkThemeAdaptableColor(MaterialTheme.colors.background)
     ) {
         Column(modifier = Modifier.padding(16.dp, 12.dp)) {
             HeaderTitle(name = "Preview Header")

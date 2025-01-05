@@ -16,7 +16,7 @@ android {
     buildToolsVersion defaultBuildToolsVersion
 
     defaultConfig {
-        applicationId "kr.pokeum.compose_app"
+        applicationId "kr.pokeum.jsonviewer.app"
         minSdkVersion composeMinSdkVersion
         targetSdkVersion defaultTargetSdkVersion
         versionCode versionCodeApp
@@ -68,6 +68,7 @@ dependencies {
     implementation androidx.lifecycleRuntimeKtx
     implementation androidx.activityCompose
     implementation androidx.navigationCompose
+    implementation network.okhttp
 
     testImplementation test.junit
 

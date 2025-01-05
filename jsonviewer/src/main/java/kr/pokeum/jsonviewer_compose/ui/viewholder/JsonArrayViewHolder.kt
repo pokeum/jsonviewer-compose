@@ -22,8 +22,8 @@ import kr.pokeum.jsonviewer_compose.R
 import kr.pokeum.jsonviewer_compose.model.JsonArray
 import kr.pokeum.jsonviewer_compose.ui.adapter.JsonViewerAdapter
 import kr.pokeum.jsonviewer_compose.ui.provider.JsonArrayProvider
-import kr.pokeum.jsonviewer_compose.ui.values.Colors
 import kr.pokeum.jsonviewer_compose.ui.values.Dimens
+import kr.pokeum.jsonviewer_compose.ui.values.JsonViewerColor
 import kr.pokeum.jsonviewer_compose.ui.values.Strings
 
 @Preview(showSystemUi = true)
@@ -64,7 +64,7 @@ internal fun JsonArrayViewHolder(
                     },
                 painter = painterResource(id = R.drawable.ic_arrow_white_24dp),
                 contentDescription = Strings.JSON_ARROW_ICON_DESCRIPTION,
-                colorFilter = ColorFilter.tint(Colors.Red500),
+                colorFilter = ColorFilter.tint(JsonViewerColor.Arrow.getColor()),
                 contentScale = ContentScale.Fit,
                 alignment = Alignment.Center
             )
@@ -84,7 +84,7 @@ internal fun JsonArrayViewHolder(
                     text = Strings.JSON_ARRAY_KEY_DESCRIPTION_LABEL,
                     fontSize = Dimens.JSON_KEY_DESCRIPTION_LABEL_SIZE,
                     fontWeight = FontWeight.Bold,
-                    color = Colors.Green500
+                    color = JsonViewerColor.Bracket.getColor()
                 )
             }
 
@@ -101,7 +101,7 @@ internal fun JsonArrayViewHolder(
                 text = "\"$key\"",
                 fontSize = Dimens.JSON_KEY_LABEL_SIZE,
                 fontWeight = FontWeight.Bold,
-                color = Colors.DarkerGray
+                color = JsonViewerColor.Key.getColor()
             )
         }
 
@@ -118,7 +118,7 @@ internal fun JsonArrayViewHolder(
                 Box(
                     modifier = Modifier
                         .width(Dimens.JSON_DIVIDER_LAYOUT_WIDTH)
-                        .background(Colors.DividerColor)
+                        .background(JsonViewerColor.Divider.getColor())
                         .constrainAs(divider) {
                             start.linkTo(parent.start, margin = Dimens.JSON_DIVIDER_MARGIN_START)
                             top.linkTo(parent.top)

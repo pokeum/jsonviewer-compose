@@ -13,8 +13,8 @@ import androidx.constraintlayout.compose.Dimension
 import kr.pokeum.jsonviewer_compose.model.JsonNull
 import kr.pokeum.jsonviewer_compose.ui.provider.JsonNullProvider
 import kr.pokeum.jsonviewer_compose.ui.util.keyValueSpannableGenerator
-import kr.pokeum.jsonviewer_compose.ui.values.Colors
 import kr.pokeum.jsonviewer_compose.ui.values.Dimens
+import kr.pokeum.jsonviewer_compose.ui.values.JsonViewerColor
 import kr.pokeum.jsonviewer_compose.ui.values.Strings
 
 @Preview(showSystemUi = true)
@@ -23,7 +23,7 @@ internal fun JsonNullViewHolder(
     @PreviewParameter(JsonNullProvider::class)
     target: JsonNull
 ) {
-    var key by remember { mutableStateOf(target.key) }
+    val key by remember { mutableStateOf(target.key) }
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -51,7 +51,7 @@ internal fun JsonNullViewHolder(
                     text = Strings.JSON_NULL_KEY_DESCRIPTION_LABEL,
                     fontSize = Dimens.JSON_KEY_DESCRIPTION_LABEL_SIZE,
                     fontWeight = FontWeight.Bold,
-                    color = Colors.Blue500
+                    color = JsonViewerColor.Type.getColor()
                 )
             }
 

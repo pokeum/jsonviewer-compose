@@ -1,15 +1,18 @@
 package kr.pokeum.app.util
 
 import android.content.Context
-import kr.pokeum.jsonviewer_compose.JsonParser
-import kr.pokeum.jsonviewer_compose.model.JsonElement
-import kr.pokeum.jsonviewer_compose.model.JsonObject
-import org.json.JSONException
+import android.net.Uri
 import java.io.BufferedReader
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
 
+/**
+ * Reads the contents of a file from assets
+ */
 @Throws(IOException::class)
 fun Context.readAssetsFile(filename: String): String {
     val inputStream: InputStream = assets.open(filename)
@@ -23,16 +26,57 @@ fun Context.readAssetsFile(filename: String): String {
     return stringBuilder.toString()
 }
 
-fun Context.generateJsonElement(filename: String): JsonElement? {
-
-    val jsonParser = JsonParser
-        .Builder()
-        .setComparator(compareBy { it !is JsonObject })
-        .build()
-
-    return try {
-        jsonParser.parse(readAssetsFile(filename))
+/**
+ * Reads the contents of a file from the given Content URI
+ */
+@Throws(IOException::class)
+fun Context.readFileFromUri(uri: Uri): String? {
+    val inputStream = contentResolver.openInputStream(uri)
+    return inputStream?.let { istream ->
+        val reader = BufferedReader(InputStreamReader(istream))
+        val stringBuilder = StringBuilder()
+        var line: String?
+        while (reader.readLine().also { line = it } != null) {
+            stringBuilder.append(line)
+        }
+        istream.close()
+        stringBuilder.toString()
     }
-    catch (e: JSONException) { null }
-    catch (e: IOException) { null }
+}
+
+@Throws(IOException::class)
+fun Context.readCacheFile(filename: String): ByteArray {
+    val fileToReadFrom = File(cacheDir, filename)
+    val size = fileToReadFrom.length().toInt()
+    val bytes = ByteArray(size)
+    val tmpBuff = ByteArray(size)
+    val fis = FileInputStream(fileToReadFrom)
+    try {
+        var read = fis.read(bytes, 0, size)
+        if (read < size) {
+            var remain = size - read
+            while (remain > 0) {
+                read = fis.read(tmpBuff, 0, remain)
+                System.arraycopy(tmpBuff, 0, bytes, size - remain, read)
+                remain -= read
+            }
+        }
+    }
+    catch (e: IOException) { throw e }
+    finally { fis.close() }
+    return bytes
+}
+
+fun Context.writeCacheFile(bytesToWrite: ByteArray, filename: String) {
+    val fileToWriteIn = File(cacheDir, filename)
+    try {
+        if (!fileToWriteIn.exists()) {
+            fileToWriteIn.createNewFile()
+        }
+        val fos = FileOutputStream(fileToWriteIn)
+        fos.write(bytesToWrite)
+        fos.close()
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
 }

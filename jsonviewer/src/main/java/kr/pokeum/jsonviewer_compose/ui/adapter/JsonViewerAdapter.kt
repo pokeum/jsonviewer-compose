@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import kr.pokeum.jsonviewer_compose.model.*
+import kr.pokeum.jsonviewer_compose.ui.values.JsonViewerColor
 import kr.pokeum.jsonviewer_compose.ui.viewholder.JsonArrayViewHolder
 import kr.pokeum.jsonviewer_compose.ui.viewholder.JsonNullViewHolder
 import kr.pokeum.jsonviewer_compose.ui.viewholder.JsonObjectViewHolder
@@ -15,8 +16,23 @@ import kr.pokeum.jsonviewer_compose.ui.viewholder.JsonPrimitiveViewHolder
 
 @Composable
 fun JsonViewerAdapter(
-    jsonElement: JsonElement? = null
+    jsonElement: JsonElement? = null,
+    keyColor: JsonViewerColor? = null,
+    valueColor: JsonViewerColor? = null,
+    splitterColor: JsonViewerColor? = null,
+    typeColor: JsonViewerColor? = null,
+    arrowColor: JsonViewerColor? = null,
+    bracketColor: JsonViewerColor? = null,
+    dividerColor: JsonViewerColor? = null,
 ) {
+    keyColor?.let { JsonViewerColor.Key = it }
+    valueColor?.let { JsonViewerColor.Value = it }
+    splitterColor?.let { JsonViewerColor.Splitter = it }
+    typeColor?.let { JsonViewerColor.Type = it }
+    arrowColor?.let { JsonViewerColor.Arrow = it }
+    bracketColor?.let { JsonViewerColor.Bracket = it }
+    dividerColor?.let { JsonViewerColor.Divider = it }
+
     val elements: MutableList<JsonElement> = when (jsonElement) {
         is JsonObject -> { jsonElement.elements }
         is JsonArray -> { jsonElement.elements }

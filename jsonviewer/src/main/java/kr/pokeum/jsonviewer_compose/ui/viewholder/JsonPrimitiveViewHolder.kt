@@ -13,8 +13,8 @@ import androidx.constraintlayout.compose.Dimension
 import kr.pokeum.jsonviewer_compose.model.JsonPrimitive
 import kr.pokeum.jsonviewer_compose.ui.provider.JsonPrimitiveProvider
 import kr.pokeum.jsonviewer_compose.ui.util.keyValueSpannableGenerator
-import kr.pokeum.jsonviewer_compose.ui.values.Colors
 import kr.pokeum.jsonviewer_compose.ui.values.Dimens
+import kr.pokeum.jsonviewer_compose.ui.values.JsonViewerColor
 import kr.pokeum.jsonviewer_compose.ui.values.Strings
 
 @Preview(showSystemUi = true)
@@ -23,8 +23,8 @@ internal fun JsonPrimitiveViewHolder(
     @PreviewParameter(JsonPrimitiveProvider::class)
     target: JsonPrimitive
 ) {
-    var key by remember { mutableStateOf(target.key) }
-    var value by remember { mutableStateOf(target.value) }
+    val key by remember { mutableStateOf(target.key) }
+    val value by remember { mutableStateOf(target.value) }
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -56,7 +56,7 @@ internal fun JsonPrimitiveViewHolder(
                     },
                     fontSize = Dimens.JSON_PRIMITIVE_KEY_DESCRIPTION_LABEL_SIZE,
                     fontWeight = FontWeight.Bold,
-                    color = Colors.Blue500
+                    color = JsonViewerColor.Type.getColor()
                 )
             }
 
