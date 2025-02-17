@@ -5,24 +5,24 @@ plugins {
 
 def majorNumber = 0
 def minorNumber = 0
-def patchNumber = 0
+def patchNumber = 1
 
-def versionNameApp = "$majorNumber.$minorNumber.$patchNumber"
-def versionCodeBase = majorNumber * 100000 + minorNumber * 1000 + patchNumber * 10
-def versionCodeApp = versionCodeBase + 1
+def VERSION_NAME = "$majorNumber.$minorNumber.$patchNumber"
+def VERSION_CODE = majorNumber * 100000 + minorNumber * 1000 + patchNumber * 10
 
 android {
-    compileSdkVersion defaultCompileSdkVersion
-    buildToolsVersion defaultBuildToolsVersion
+    compileSdkVersion   COMPILE_SDK_VERSION
+    buildToolsVersion   BUILD_TOOL_VERSION
 
     defaultConfig {
-        applicationId "kr.pokeum.jsonviewer.app"
-        minSdkVersion composeMinSdkVersion
-        targetSdkVersion defaultTargetSdkVersion
-        versionCode versionCodeApp
-        versionName versionNameApp
+        applicationId       "kr.pokeum.jsonviewer.app"
+        minSdkVersion       COMPOSE_MIN_SDK_VERSION
+        targetSdkVersion    TARGET_SDK_VERSION
+        versionCode         VERSION_CODE
+        versionName         VERSION_NAME
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
         vectorDrawables {
             useSupportLibrary true
         }
@@ -30,23 +30,23 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled   false
+            proguardFiles   getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
-        sourceCompatibility javaCompileVersion
-        targetCompatibility javaCompileVersion
+        sourceCompatibility JAVA_COMPILE_VERSION
+        targetCompatibility JAVA_COMPILE_VERSION
     }
     kotlinOptions {
-        jvmTarget = jvmTarget
+        jvmTarget = JVM_TARGET
     }
     buildFeatures {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion versions.compose
-        kotlinCompilerVersion versions.kotlin
+        kotlinCompilerExtensionVersion  versions.compose
+        kotlinCompilerVersion           versions.kotlin
     }
     packagingOptions {
         resources {

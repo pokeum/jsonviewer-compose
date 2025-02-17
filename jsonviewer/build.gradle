@@ -8,15 +8,16 @@ def majorNumber = 0
 def minorNumber = 0
 def patchNumber = 0
 
-def versionNameSdk = "$majorNumber.$minorNumber.$patchNumber"
+def VERSION_NAME = "$majorNumber.$minorNumber.$patchNumber"
+def VERSION_CODE = majorNumber * 100000 + minorNumber * 1000 + patchNumber * 10
 
 android {
-    namespace 'kr.pokeum.jsonviewer_compose'
-    compileSdkVersion defaultCompileSdkVersion
+    namespace           "kr.pokeum.jsonviewer_compose"
+    compileSdkVersion   COMPILE_SDK_VERSION
 
     defaultConfig {
-        minSdkVersion composeMinSdkVersion
-        targetSdkVersion defaultTargetSdkVersion
+        minSdkVersion       MIN_SDK_VERSION
+        targetSdkVersion    TARGET_SDK_VERSION
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -33,18 +34,18 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility javaCompileVersion
-        targetCompatibility javaCompileVersion
+        sourceCompatibility JAVA_COMPILE_VERSION
+        targetCompatibility JAVA_COMPILE_VERSION
     }
     kotlinOptions {
-        jvmTarget = jvmTarget
+        jvmTarget = JVM_TARGET
     }
     buildFeatures {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion versions.compose
-        kotlinCompilerVersion versions.kotlin
+        kotlinCompilerExtensionVersion  versions.compose
+        kotlinCompilerVersion           versions.kotlin
     }
     packagingOptions {
         resources {
@@ -70,9 +71,9 @@ dependencies {
 publishing {
     publications {
         release(MavenPublication) {
-            groupId = 'com.github.pokeum'
-            artifactId = 'jsonviewer-compose'
-            version = versionNameSdk
+            groupId     = "com.github.pokeum"
+            artifactId  = "jsonviewer-compose"
+            version     = VERSION_NAME
 
             afterEvaluate {
                 from components.release
